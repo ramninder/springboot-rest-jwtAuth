@@ -1,0 +1,68 @@
+server: 
+  port: 8080
+
+spring:
+  profiles:
+    active:
+      - dev
+# app properties
+ramninder:
+  app:
+    jwtExpirationMs: '86400000'
+    jwtSecret: ramninderSecretKey
+
+
+---
+
+spring:
+  config.activate.on-profile: dev
+  
+  application:
+    name: Demo
+  
+  datasource:
+    driverClassName: org.postgresql.Driver
+    username: postgres
+    password: 1234
+    url: jdbc:postgresql://localhost:5432/postgres
+    
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: true
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate: 
+        default_schema: public
+      show-sql: true
+  sql:
+    init:
+      mode: NEVER
+      
+  
+---
+
+spring:
+  config.activate.on-profile: prod
+  
+  application:
+    name: Demo
+  
+  datasource:
+    driverClassName: org.postgresql.Driver
+    username: postgres
+    password: 1234
+    url: jdbc:postgresql://localhost:5432/postgres
+    
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        default_schema: public
+      show-sql: false
+  sql:
+    init:
+      mode: NEVER
